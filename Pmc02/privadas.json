@@ -1,0 +1,22 @@
+[
+  {
+    "grupo": "7 Prueba propia - Todo al maximo",
+    "entrada": "3 4 80\n80 MAX1 0 10 100 100 100 100\n90 MAX2 0 10 100 100 100 100\n70 MAX3 1 90 0 0 0 0\n",
+    "salida": "80 1 1\n90 1 1\n70 0 0\nTOTAL 2\nORDER 80 90 70\nFIND 80 1\n"
+  },
+  {
+    "grupo": "8 Prueba propia - Trampa de ID repetido",
+    "entrada": "2 2 10\n10 TRAMPA 0 50 100 100\n10 TRAMPA 0 50 100 100\n",
+    "salida": "ERROR\n"
+  },
+  {
+    "grupo": "9 Prueba propia - Ordenamiento estricto",
+    "entrada": "4 2 15\n15 D 0 50 0 0\n14 C 0 50 0 0\n13 B 0 50 0 0\n12 A 0 50 0 0\n",
+    "salida": "15 0 0\n14 0 0\n13 0 0\n12 0 0\nTOTAL 0\nORDER 12 13 14 15\nFIND 15 0\n"
+  },
+  {
+    "grupo": "10 Prueba propia - Multiples encendidos",
+    "entrada": "1 4 99\n42 SWITCH 0 20 40 10 50 5\n",
+    "salida": "42 2 0\nTOTAL 2\nORDER 42\nFIND 99 -1\n"
+  }
+]
