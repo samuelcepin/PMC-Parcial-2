@@ -21,7 +21,7 @@ typedef struct {
 } Registro;
 
 // Prototipos de las funciones obligatorias
-void calcular(int muestras_unidad[], int m, int tipo, int p, int *estado);
+int calcular(int muestras_unidad[], int m, int tipo, int p, int *estado);
 int total_rec(Registro registros[], int n);
 void ordenar(Registro registros[], int n);
 int buscar(Registro registros[], int n, int q);
