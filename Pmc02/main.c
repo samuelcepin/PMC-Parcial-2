@@ -15,27 +15,29 @@
 // Matriz global exigida por la rúbrica
 int muestras[MAX_UNIDADES][MAX_MUESTRAS];
 
-// Función obligatoria para calcular la histéresis de una unidad
+// Función para calcular la histéresis
 int calcular(int vector_muestras[], int m, int tipo, int p, int *estado) {
     int score = 0;
-    *estado = tipo; // Inicie encendido=tipo y score=0[cite: 1]
+    *estado = tipo; 
 
     for (int i = 0; i < m; i++) {
         int x = vector_muestras[i];
-        
-        // Si está apagado y x >= p+10, encienda y sume 1 a score[cite: 1]
         if (*estado == 0 && x >= (p + 10)) {
             *estado = 1;
             score++;
-        } 
-        // Si está encendido y x <= p, apague[cite: 1]
-        else if (*estado == 1 && x <= p) {
+        } else if (*estado == 1 && x <= p) {
             *estado = 0;
         }
-        // En los demás casos conserva el estado[cite: 1]
     }
-    
     return score;
+}
+
+// Función recursiva obligatoria para sumar los scores
+int total_rec(Registro registros[], int n) {
+    if (n == 0) {
+        return 0;
+    }
+    return registros[n - 1].score + total_rec(registros, n - 1);
 }
 
 int main(void) {
@@ -48,7 +50,6 @@ int main(void) {
         return 0;
     }
 
-    // Validar dominios estrictos (n: 1-20, m: 1-8, q: 1-9999)
     if (n < 1 || n > 20 || m < 1 || m > 8 || q < 1 || q > 9999) {
         printf("ERROR\n");
         return 0;
@@ -86,23 +87,48 @@ int main(void) {
         }
     }
 
-    // 3. Calcular la histéresis e imprimir resultados individuales
-    // Calcule score y estado por separado para cada registro[cite: 1]
+    // 3. Calcular e imprimir resultados individuales
     for (int i = 0; i < n; i++) {
         int estado_final;
-        
-        // Llamamos a la función enviando la fila de la matriz y recibiendo el estado por referencia
         int score_final = calcular(muestras[i], m, registros[i].config.tipo, registros[i].config.p, &estado_final);
         
-        // Guardamos los cálculos en el registro de la unidad
         registros[i].score = score_final;
         registros[i].estado = estado_final;
         
-        // Para entrada válida imprima, en el orden original, una línea por unidad: id score estado[cite: 1]
         printf("%d %d %d\n", registros[i].id, registros[i].score, registros[i].estado);
     }
 
-    // TODO: Paso 4 - Calcular total recursivo, ordenar e imprimir TOTAL, ORDER y FIND
+    // 4. Calcular e imprimir el total recursivo
+    int suma_total = total_rec(registros, n);
+    printf("TOTAL %d\n", suma_total);
+
+    // 5. Ordenar por Score (Mayor a Menor) y desempatar por ID (Menor a Mayor)
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (registros[j].score < registros[j + 1].score || 
+               (registros[j].score == registros[j + 1].score && registros[j].id > registros[j + 1].id)) {
+                Registro temp = registros[j];
+                registros[j] = registros[j + 1];
+                registros[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("ORDER");
+    for (int i = 0; i < n; i++) {
+        printf(" %d", registros[i].id);
+    }
+    printf("\n");
+
+    // 6. Buscar la unidad 'q' y mostrar su score
+    int score_encontrado = -1;
+    for (int i = 0; i < n; i++) {
+        if (registros[i].id == q) {
+            score_encontrado = registros[i].score;
+            break;
+        }
+    }
+    printf("FIND %d %d\n", q, score_encontrado);
 
     return 0;
 }
