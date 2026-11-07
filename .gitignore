@@ -1,0 +1,32 @@
+# Ejecutables y archivos temporales de compilación
+reto
+reto.exe
+*.exe
+*.o
+*.obj
+
+# Archivos objeto y bibliotecas
+
+*.a
+*.so
+*.dll
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+*.bak
+*~
+
+# Configuración local de Visual Studio Code
+.vscode/
+
+# Archivos del sistema y configuración privada
+.DS_Store
+Thumbs.db
+desktop.ini
+.env
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
